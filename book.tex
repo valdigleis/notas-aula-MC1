@@ -1,0 +1,58 @@
+% -------------------------------------------------------------------------
+% Arquivo principal do projeto: vBook
+% Autor: Valdigleis (valdigleis@gmail.com)
+% -------------------------------------------------------------------------
+\documentclass[10pt, a4paper]{book}
+
+% -------------------------------------------------------------------------
+% Importa os pacotes usados
+% -------------------------------------------------------------------------
+\input{configs/packages}
+\input{configs/color}
+\input{configs/commands}
+\input{configs/headfoot.tex}
+\input{configs/lists}
+\input{configs/settings}
+\input{configs/boxes}
+\input{configs/contents}
+
+
+% -------------------------------------------------------------------------
+% Informações básicas
+% -------------------------------------------------------------------------
+\myTitle{Matemática para a Computação I}[Notas de Aula]
+
+% -------------------------------------------------------------------------
+% O livro
+% -------------------------------------------------------------------------
+\begin{document}
+
+\frontmatter
+
+% -------------------------------------------------------------------------
+% Pré-texto
+% -------------------------------------------------------------------------
+\input{preTexto/cover}
+\input{preTexto/copyright}
+
+% Índices de Conteúdos, Imagens e Tabelas
+\tableofcontents
+
+\mainmatter
+
+\part{Fundamentos de Lógica}
+\input{Texto/cap1}
+
+
+
+
+
+% -------------------------------------------------------------------------
+% Referências bibliográficas 
+% -------------------------------------------------------------------------
+\bibliographystyle{abbrv} 								% Estilo das bibliográficas
+\bibliography{posTexto/books, posTexto/journalPapers, posTexto/proceedings, posTexto/techreport, posTexto/thesis, posTexto/unpublished}			% Arquivo das referências
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}	% Compilação do fonte .bib
+
+\end{document}
