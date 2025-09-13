@@ -1,0 +1,319 @@
+\chapter{Lógica Proposicional}\label{cap:LogicsPropositional}
+
+\epigraph{``Ou a matemática é muito grande para a mente humana, ou a mente humana é mais do que uma máquina.''}{Kurt Gödel}
+
+\section{A Linguagem Proposicional}\label{A Linguagem proposicional}
+
+Este capítulo tem como objetivo apresentar ao leitor o cálculo proposicional, ou seja, o estudo da lógica proposicional, em seus dois aspectos já bem estabelecido por matemáticos e filósofos, isto é,  sua sintaxe e sua semântica\sidefootnote{O aspecto pragmático da lógica, por ainda se encontrar em um estágio primitivo de seu desenvolvimento, do ponto de vista matemático, não será abordado neste texto, para este assunto ver \cite{rodrigues2021, silva2018}.}. Assim esse capítulo começa com a formalização da linguagem da lógica proposicional, isto é, a linguagem proposicional. A seguir é apresentado formalmente a noção de alfabeto proposicional.
+
+\begin{definicao}[Alfabeto Proposicional]\label{def:AlfabetoProposicional}
+  O alfabeto proposicional corresponde ao conjunto enumerável $\Sigma = \Sigma_s \cup \Sigma_o \cup \Sigma_p \cup \{\bot\}$ onde:
+  \begin{itemize}
+      \item $\Sigma_s = \{A, \cdots, P, Q, R, P_1, Q_{12}, \cdots\}$ é um conjunto enumerável, chamado conjunto dos átomos;
+      \item $\Sigma_o = \{\land, \lor, \neg, \Rightarrow\}$ é o conjunto dos símbolos operacionais\footnote{Também é comum encontrar na literatura (ver \cite{joaoPavao2014}) a nomenclatura conjunto de conectivos.};
+      \item $\Sigma_p = \{(, )\}$ é o conjunto dos símbolos de pontuação e
+      \item $\bot$ é o símbolo do absurdo.
+  \end{itemize}
+\end{definicao}
+
+Em algumas outras obras tais como \cite{carmo2013} também é mencionado o símbolo $\top$ para designar a tautologia, entretanto, como explicado no próprio texto de \cite{carmo2013}, tal símbolo é apenas um açucar sintático para a expressão $(\neg \bot)$.
+
+\begin{definicao}[Linguagem Proposicional]\label{def:LinguagemProposicional}
+  Dado o alfabeto proposicional $\Sigma$, a linguagem proposicional, denotada por $\mathcal{L}$, é menor conjunto de fórmulas bem formadas (fbf) indutivamente gerado, tal que cada fbf $\phi \in \mathcal{L}$ é construído pela gramática:
+  \begin{eqnarray*}
+    \phi & ::= & x \mid (\neg \phi) \mid (\phi \land \phi)  \mid (\phi \lor \phi) \mid (\phi \Rightarrow \phi) 
+  \end{eqnarray*}
+  onde $x \in \Sigma_s \cup \{\bot\}$.
+\end{definicao}
+
+\begin{exemplo}\label{exe:PalavrasProposicionaisBemFormadas}
+  Dado $P, Q, R, S, T \in \Sigma_s \cup \{\bot\}$ tem-se que:
+  \begin{itemize}
+      \item[(a)] $P$
+      \item[(b)] $(P \land Q)$
+      \item[(c)] $(R \Rightarrow S)$
+      \item[(d)] $((Q \lor S) \Rightarrow T)$
+  \end{itemize}
+  são todas palavras da linguagem $\mathcal{L}$. Por outro lado, as palavras:
+  \begin{itemize}
+      \item[(e)] $P \land$
+      \item[(f)] $\Rightarrow Q$
+      \item[(g)] $P \lor \land Q$
+  \end{itemize}
+  não são palavras da linguagem $\mathcal{L}$, pois nenhuma é uma fbf.
+\end{exemplo}
+
+Na prática, o número das parênteses incomoda bastante, assim sempre que possível é interessante remover o excesso deles. E para remover os parênteses mais externos de qualquer fórmula, para isso se considera como dito em \cite{stanford-dic-1}, a precedência dos símbolos dos conectivos da linguagem proposicional, sendo tal precedência expressa a seguir. 
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cc}
+    \hline
+    Ordem & Conectivo\\
+    \hline 
+    1 & $\neg$\\
+    2 & $\land$\\
+    3 & $\lor$\\
+    4 & $\Rightarrow$\\
+    \hline
+  \end{tabular}
+  \caption{Tabela de precedência dos conectivos proposicionais.}
+  \label{tab:PrecedenciaProposicional}
+\end{table}
+
+Ou seja, a Tabela \ref{tab:PrecedenciaProposicional} descreve que o símbolo $\neg$ tem precedência maior do que $\land$, sendo que $\land$ tem precedência maior do que $\lor$ e, por fim, $\lor$ tem precedência maior do que $\Rightarrow$.
+
+
+\begin{exemplo}\label{exe:}
+  Usando a precedência dos conectivos da linguagem proposicional tem-se a seguinte tabela de simplificações de fbf's:
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{cc}
+      \hline
+      Fbf & Fbf simplificada\\
+      \hline
+      $(\neg (\neg (\neg (\neg P))))$ & $\neg \neg \neg \neg P$\\
+      $((P \lor Q) \Rightarrow (R \land (\neg S)))$ & $P \lor Q \Rightarrow R \land \neg S$\\
+      $((P \land Q) \lor R)$ & $P \land Q \lor R$\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{exemplo}
+
+É possível enriquecer\sidefootnote{No sentido de adicionar mais símbolos ao alfabeto.} a linguagem proposicional adicionando mais símbolos operacionais no alfabeto da mesma, essa introdução é feita utilizando o conceito de abreviação. Uma abreviação na lógica formal consiste na ação de usar um novo símbolo para criar uma nova palavra não presente originalmente na linguagem proposicional, mas que representa uma palavra da linguagem. 
+
+Um exemplo do que foi descrito no paragrafo anterior é o símbolo $\top$, que na verdade é uma abreviação para a palavra $(\neg \bot)$, outro exemplo de abreviação, como dito em \cite{joaoPavao2014}, é o uso do símbolo $\Leftrightarrow$, usando tal símbolo como um Conectivo lógico, tem-se que $\alpha \Leftrightarrow \beta$ é a abreviação  da palavra $((\alpha \Rightarrow \beta) \land (\beta \Rightarrow \alpha))$ com $\alpha, \beta \in \mathcal{L}$, vale salientar que o símbolo $\Leftrightarrow$ também pode ser usado para representa uma relação de equivalência semântica \cite{benja-Logica,edgar2002,nunes2008}.
+
+De fato, muitos dos símbolos operacionais que foram tomados como símbolos básicos do alfabeto proposicional (Definição \ref{def:AlfabetoProposicional}) poderiam ser removidos, pois como muito bem explicado em \cite{benja-Logica, joaoPavao2014} a lógica proposicional pode ser definida sobre a linguagem que contém apenas os símbolos operacionais de $\Rightarrow$ e $\neg$, os demais símbolos podem ser obtidos via abreviação sem qualquer perda no estudo da lógica proposicional, para mais detalhes ver \cite{benja-Logica}.
+
+\section{Sistema Dedutivo}\label{sec:SistemaDedutivo}
+
+A ideia de sistemas dedutivos para a lógica formal remonta aos trabalhos publicados\sidefootnote{Esses trabalhos podem ser encontrados re-editados respectivamente em \cite{gentzen1969} e \cite{jaskowski1934}.} no ano de 1934 pelo matemático e filósofo alemão Gerhard Gentzen (1909-1945) e pelo lógico polonês Stanisław Jaśkowski (1906-1965). Existem diversos sistemas dedutivos para a lógica proposicional, cada um possuindo suas próprias características, vantagens e desvantagens, no entanto, todos os sistemas dedutivos compartilham a característica em comum de possuírem um conjunto finito de regras de inferência, esse conjunto de regras de inferência é também chamado de sistema regras ou sistema de dedução \cite{edgar2002}.
+
+O sistema dedutivo introduzido por Gentzen e Jaśkowski é conhecido por dedução natural, aqui ele será apresentado de forma similar a exposição feita em \cite{joaoPavao2014}. O conjunto de regras de inferência da dedução natural e composto pelas regras: de introdução e eliminação de conectivos, regra de reiteração, introdução de hipóteses e a regra do absurdo. Entretanto, antes de apresentar as regras do sistema de dedução natural e conveniente apresentar o conceito de demonstração, para isso deve-se escolher uma notação para as provas da dedução natural.
+
+Existem diversas formas de se escrever (ou representar) uma demonstração no sistema de dedução natural, entre elas destacam-se as árvores de prova de Gentzen \cite{benja-Logica}, o estilo linear \cite{copi1981, mortari2001} e o estilo de Fitch \cite{fitch1953, joaoPavao2014}. 
+
+Neste texto será adotado o estilo de Fitch como modelo padrão para a escrita das demonstrações do sistema de dedução natural para a lógica proposicional, assim é conveniente apresentar de forma sucinta o estilo de Fitch. O estilo de Fitch foi introduzido pelo lógico americano Frederic Brenton Fitch (1908-1987) e corresponde a diagramas hierárquicos formados por linhas e barras (verticais e horizontais) que representam o raciocínio para a partir de um conjunto de premissas se obter uma determinada conclusão ou objetivo (em inglês \textit{goal}).
+
+O diagrama de Fitch é organizado por linhas numeradas, onde cada linha $i$ pode conter uma única palavra de $\mathcal{L}$, sendo essa palavra uma premissa ou sendo ela obtida pela aplicação de alguma regra de inferência sobre uma ou mais linhas anteriores a linha $i$. 
+
+As barras verticais nos diagramas de Fitch são usadas de duas formas:
+\begin{itemize}
+    \item[(1)] Para separar a demonstração em escopos, sendo que um escopo consiste de uma sequência de várias linhas (ou passos) para demonstrar uma conclusão.
+    \item[(2)] Como um mecanismo para saber quais palavras de $\mathcal{L}$ estão ativas\sidefootnote{Uma palavra de $\mathcal{L}$ está ativa em uma demonstração, enquanto o escopo da mesma está aberto na demonstração.} na prova, como explicado em \cite{joaoPavao2014}. 
+\end{itemize}
+
+As barras horizontais no diagrama de Fitch indicam a divisão entre  as  afirmações  que  estamos  assumindo  (nossas premissas e (ou) hipóteses) e as palavras que se seguem delas, sejam conclusões intermediárias ou nosso objetivo final. No caso das hipóteses a barra horizontal também cria um novo ``escopo'', isto é, adiciona uma indentação em relação ao escopo anterior, vale salientar que cada escopo é na verdade uma prova para um (sub-)objetivo. 
+
+Por fim, é comum na notação dos diagramas de Fitch escrever mais à direita de cada linha a regra de inferência que gerou a palavra na linha, ou o fato da palavra ser uma premissa ou hipótese. Agora pode-se apresentar formalmente o conceito de prova que será adotado neste capítulo.
+
+\begin{definicao}[Prova]\label{def:Prova}
+  Uma prova para $\alpha \in \mathcal{L}$ consiste de um diagrama de Fitch como uma quantidade finita de linhas, de forma que a última linha contém a palavra $\alpha$ e cada linha $i$ anterior contém uma palavra $\beta_i \in \mathcal{L}$ tal que $\beta_i$ ou é uma premissa ou é obtida via aplicação de alguma regra de inferência.
+\end{definicao}
+
+Agora pode-se definir precisamente o conceito de relação de consequência sintática sobre a linguagem $\mathcal{L}$.
+
+\begin{definicao}[Consequência Sintática]\label{def:ConsequênciaSintatica}
+  Seja $\mathcal{L}$ a linguagem proposicional, dado $\alpha \in \mathcal{L}$ e $\Gamma \subseteq \mathcal{L}$, diz-se que $\alpha$ é consequência sintática de $\Gamma$, denotado por $\Gamma \vdash \alpha$, sempre que existir uma prova de $\alpha$ a partir do conjunto de premissas $\Gamma$. 
+\end{definicao}
+
+A seguir são apresentadas as regras de inferência do sistema de dedução natural, aqui será iniciada pelas regras que não envolvem diretamente os símbolo operacionais, isto é, que não age diretamente para eliminar ou introduzir os elementos de $\Sigma_o$ na demonstração.
+
+\begin{definicao}[Regra das premissas]\label{def:RegraPremissas}
+  Se $\Gamma = \{\alpha_1, \cdots, \alpha_n \}$ é um conjunto finitos de premissas, então a regra das premissas fixa que a construção do diagrama de Fitch para uma prova de $\Gamma \vdash \alpha$ dispões nas $n$ primeiras linhas do diagrama as $n$ premissas contidas $\Gamma$, onde na linha $i$ se encontra a premissa $\alpha_i$, além disso, existe uma barra vertical contínua\footnote{Cada linha vertical contínua é um escopo dentro da demonstração.} a esquerda das premissas e após a linha $n$ há uma barra horizontal separando as promissas do resto da prova, ou seja:
+  $$
+    \begin{nd}
+      \have[1]{h}{\alpha_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[n]{atob}{\alpha_n} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots}
+    \end{nd}
+  $$
+\end{definicao}
+
+\begin{exemplo}\label{exe:RegraPremissas}
+  A prova de $\{P, Q\} \vdash P \land Q$ pode ser iniciada usando a regra das premissas de forma que é obtido o seguinte diagrama inicial:
+  $$
+    \begin{nd}
+      \have[1]{h}{P} \by{Premissa}{}
+      \hypo[2]{atob}{Q} \by{Premissa}{}
+    \end{nd}
+ $$
+\end{exemplo}
+
+\begin{atencao}
+  Obviamente, uma vez que, $\Gamma$ é um conjunto seu elementos não possuem uma ordem explicita, assim não existe diferença entre o diagrama do Exemplo \ref{exe:RegraPremissas} com um diagrama em que $Q$ esteja na linha 1, e $P$ na linha 2.  
+\end{atencao}
+
+Seguindo com as regras mais básicas do sistema de dedução natural tem-se a regra de reiteração, repetição, copia ou clonagem, aqui esta regra será denotada apenas por REI.
+
+\begin{definicao}[Regra da reiteração]\label{def:RegraRepetição}
+  Em uma demonstração sempre é possível repetir uma palavra $\beta \in \mathcal{L}$ que já foi obtida em uma linha $i$ durante a prova, desde que o escopo que contém $\beta$ ainda esteja ativo\footnote{A noção de escopo ativo diz respeito se uma (sub-)prova foi concluída ou ainda está em desenvolvimento, este conceito será melhor trabalhado mais adiante.}. Na notação de Fitch tem-se:
+  $$
+    \begin{nd}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[i]{h}{\beta}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[n]{atob}{\beta} \by{REI}{h}
+      \have[\vdots]{skip1}{\vdots}
+    \end{nd}
+  $$
+\end{definicao}
+
+\begin{exemplo}\label{exe:AplicacaoCopia}
+  Em uma prova de $\{P, Q\} \vdash P \land(P \land Q)$ após aplicar a regra das premissas pode-se aplicar a regra de reiteração na linha 1 e com isso é obtido uma segunda ``instância'' da proposição $P$:
+  $$
+    \begin{nd}
+      \have[1]{h}{P} \by{Premissa}{}
+      \hypo[2]{atob}{Q} \by{Premissa}{}
+      \have[3]{b}{P} \by{REI}{h}
+    \end{nd}
+ $$
+\end{exemplo}
+
+Agora que já foram apresentadas as regras que não agem diretamente sobre os símbolos operacionais (de conectivos) pode-se dá sequência no texto apresentando as regras de inferência do sistema de dedução natural que atuam diretamente sobre os símbolos.
+
+\begin{atencao}
+  A partir deste ponto serão apresentadas as regras de introdução e elimitaçã dos operadores (conectivos), assim sempre que o símbolo vier seguindo de $I$ significa que a regra é de introdução, e quando vier seguido de $E$ a regra será de eliminação.
+\end{atencao}
+
+\begin{definicao}[Regra $\land I$]\label{def:RegraIntroducaoE}
+  Se em uma prova foram deduzidas as palavras $\alpha, \beta \in \mathcal{L}$ nas linhas $i$ e $j$ respectivamente, então pode-se deduzir a palavra $\alpha \land \beta$ em uma linha $k$ com $i < j < k$, na notação do diagrama de Fitch tem-se:
+  $$
+    \begin{nd}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[i]{a}{\alpha}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[j]{b}{\beta} 
+      \have[\vdots]{skip1}{\vdots} 
+      \have[k]{c}{\alpha \land \beta} \ai{a, b}
+      \have[\vdots]{skip1}{\vdots}
+    \end{nd}
+  $$
+\end{definicao}
+
+A regra de introdução da conjunção impõe que a palavra que está na linha $i$ seja fixada à esquerda do símbolo $\land$ e a palavra na linha $j$ seja fixada à direita do símbolo $\land$. Entretanto, isso pode ser facilmente contornado, imagem que na linha $i$ aparece a palavra $\beta$ e apenas na linha $j$ (com $i < j$) se encontra o $\alpha$, mas se deseja obter a palavra $\alpha \land \beta$, bem pela Definição \ref{def:RegraIntroducaoE} não seria possível, entretanto, sempre se pode usar a regra descrita na Definição \ref{def:RegraRepetição} para copiar $\beta$ para uma linha $j + k$, e então obter após isso a palavra $\alpha \land \beta$.
+
+\begin{exemplo}\label{exe:RegraIntroducaoE1}
+  Para concluir a prova de $\{P, Q\} \vdash P \land Q$ iniciada no Exemplo \ref{exe:RegraPremissas} basta aplicar a regra de introdução da conjunção nas linhas 1 e 2, como pode ser visto a seguir.
+  $$
+    \begin{nd}
+      \have[1]{a}{P} \by{Premissa}{}
+      \hypo[2]{b}{Q} \by{Premissa}{}
+      \have[3]{c}{P \land Q} \ai{a, b}
+    \end{nd}
+  $$
+\end{exemplo}
+
+\begin{exemplo}\label{exe:RegraIntroducaoE2}
+  A prova de $\{P, Q, S\} \vdash S \land (P \land Q)$ é dada por:
+  $$
+    \begin{nd}
+      \have[1]{a}{P} \by{Premissa}{}
+      \have[2]{b}{Q} \by{Premissa}{}
+      \hypo[3]{c}{S} \by{Premissa}{}
+      \have[4]{d}{P \land Q} \ai{a, b}
+      \have[5]{e}{S \land (P \land Q)} \ai{c, d}
+    \end{nd}
+  $$
+\end{exemplo}
+
+A próxima regra é a eliminação da conjunção, tal regra possui duas formas o que contrasta com a regra da introdução da conjunção que possui apenas uma única forma, note que o operador $\land$ combina duas palavras $\alpha, \beta \in \mathcal{L}$, assim quando tal operador for removido deve-se optar por qual das duas palavras será mantida como uma conclusão (intermediária ou final) da prova. A seguir é definida formalmente a regra de eliminação de conjunção.
+
+\begin{definicao}[Regra $\land E$]\label{def:RegraEliminacaoE}
+  Se em uma prova for deduzida a palavra $\alpha \land \beta$ na linha $i$, então pode-se deduzir a palavra $\alpha$ ou então a palavra $\beta$ em uma linha $j$ com $i < j$, na notação do diagrama de Fitch tem-se:
+  
+  \begin{minipage}{.45\textwidth} %
+      $$
+          \begin{nd}
+              \have[\vdots]{skip1}{\vdots}  
+              \have[i]{a}{\alpha \land \beta}
+              \have[\vdots]{skip1}{\vdots}  
+              \have[j]{b}{\alpha} \ae{a}
+              \have[\vdots]{skip1}{\vdots} 
+          \end{nd}
+      $$
+  \end{minipage} %
+  ou
+  \begin{minipage}{.45\textwidth} %
+      $$
+          \begin{nd}
+              \have[\vdots]{skip1}{\vdots}  
+              \have[i]{a}{\alpha \land \beta}
+              \have[\vdots]{skip1}{\vdots}  
+              \have[j]{b}{\beta} \ae{a}
+              \have[\vdots]{skip1}{\vdots} 
+          \end{nd}
+      $$
+  \end{minipage}
+\end{definicao}
+
+
+\section{Sistema Axiomático L}\label{sec:SistemaAxiomatico}
+
+Uma abordagem alternativa para o sistema de dedução natural são os chamados sistemas axiomáticos\sidefootnote{Em algumas referências como por exemplo \cite{benja-Logica, leonidas2002} é usado o termo teorias formais em vez de sistemas axiomáticos.}, esses sistemas introduzidos inicialmente pelo matemático alemão David Hilbert (1862-1943), consistem em adotar um conjunto finito de axiomas e um número reduzido de regras de inferência \cite{joaoPavao2014, sernadas2006}.
+
+Antes de prosseguir para definir precisamente a noção de sistemas axiomáticos é necessário antes falar sobre provas para o sistemas axiomáticos.
+
+\section{Sistema Semântico}\label{sec:SistemaSemantico}
+
+A semântica da lógica proposicional foi descrita inicialmente pelo matemático inglês George Boole (1815-1864) em seu trabalho \cite{boole1854, boole1957}, entretanto, Alfred Tarski\sidefootnote{O artigo de Tarski pode ser consultado na versão re-editada em \cite{tarski1983}.} (1901-1983) apresentou uma formulação mais rigorosa para computar os valores lógicos das palavras da linguagem proposicional em 1936. 
+
+A semântica é responsável por introduzir significado para as palavras de uma linguagem formal, no caso da linguagem proposicional clássica\sidefootnote{Clássica aqui diz respeito a lógica como apresentada pelo  matemático, lógico e filósofo alemão Gottlob Frege (1848-1925) no final do século 19.}, as palavras podem ter seu significado como verdadeiro ou falso. Antes de apresentar formalmente o conceito de semântica da linguagem proposicional é necessário definir a ideia de função de  valoração.
+
+\begin{definicao}[Valoração]\label{def:Valoracao}
+  Uma valoração dos símbolos proposicionais é uma função total $\rho : \Sigma_s \rightarrow \{0,1\}$.
+\end{definicao}
+
+O conjunto $\{0,1\}$ na Definição \ref{def:Valoracao} é chamado de conjunto dos valores de representação de verdade, em muitas apresentações de lógica usam V e F para representar os dois valores de verdade (a saber, verdadeiro e falso) em vez de usar $0$ e $1$. Neste texto, entretanto, se optou por usar $1$ (verdade) e $0$ (falso), para assim, evitar confusão com variáveis em fórmulas e metavariáveis em regras de inferência, que podem ocorrer ao usar V e F. O uso de $1$ e $0$ também é interessante, uma vez que, tais valores tem uso comum no design de circuitos digitais \cite{capuano2018, holdsworth2002, lourencco1996} e em discussões sobre design e arquitetura de computadores \cite{murdocca2001, stallings2010}, duas áreas intimamente ligadas a lógica clássica.
+
+A semântica da linguagem proposicional como destacado em \cite{joaoPavao2014} se baseia na noção de interpretação\sidefootnote{A definição de semântica apresentada neste texto é uma definição equacional, no sentido de que, sempre existe uma equação que determina o valor semântico para qualquer que seja a palavra de $\mathcal{L}$.}, sendo que, uma interpretação nada mais é do que a extensão de uma dada valoração $\rho$ para a linguagem proposicional, usando alguma álgebra booleana \cite{boole1854, boole1957}.
+
+\begin{definicao}[Interpretação]\label{def:interpretacao}
+  Dada uma valoração $\rho$, uma interpretação é uma função total $I_\rho : \mathcal{L} \rightarrow \{0,1\}$ definida para todo $\alpha, \beta \in \mathcal{L}$ recursivamente como:
+  \begin{itemize}
+       \item Se $\alpha = \bot$, então $I_\rho(\alpha) = 0$.
+       \item Se $\alpha \in \Sigma_s$, então $I_\rho(\alpha) = \rho(\alpha)$.
+       \item $I_\rho(\neg \alpha) = 1 - I_\rho(\alpha)$.
+       \item $I_\rho(\alpha \land \beta) = min(I_\rho(\alpha), I_\rho(\beta))$.
+       \item $I_\rho(\alpha \lor \beta) = max(I_\rho(\alpha), I_\rho(\beta))$.
+       \item $I_\rho(\alpha \Rightarrow \beta) = max(1 - I_\rho(\alpha), I_\rho(\beta))$.
+  \end{itemize}
+\end{definicao}
+
+\begin{exemplo}
+  Considere uma valoração $\rho$ tal que $\rho(P) = 0, \rho(Q) = 1$ e $\rho(R) = 1$ o valor de significado da palavra $\neg(P \Rightarrow (R \land Q))$ é calculado por:
+  \begin{eqnarray*}\label{eq:ExemploValoracaoA}
+    I_\rho(\neg(P \Rightarrow (R \land Q))) & = & 1 - I_\rho(P \Rightarrow (R \land Q))\\
+    & = & 1 - max(1 - I_\rho(P), min(I_\rho(R), I_\rho(Q)))\\
+    & = & 1 - max(1 - \rho(P), min(\rho(R), \rho(Q)))\\
+    & = & 1 - max(1 - 0, min(1, 1))\\
+    & = & 1 - max(1, 1)\\
+    & = & 0
+  \end{eqnarray*}
+\end{exemplo}
+
+Pode-se entretanto, em vez de usar a formalização equacional de interpretação (Definição \ref{def:interpretacao}), usar a noção de tabela verdade, destaca-se entretanto, que as duas definição são equivalentes.
+
+\begin{definicao}\label{def:TabelaE}
+  Seja $\alpha, \beta \in \mathcal{L}$, a tabela verdade da conjunção possui a seguinte forma:
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+      \hline
+      $\alpha$ & $\beta$ & $\alpha \land \beta$\\\hline
+      0 & 0 & 0\\
+      0 & 1 & 0\\
+      1 & 0 & 0\\
+      1 & 1 & 1\\
+      \hline
+    \end{tabular}
+  \end{table} 
+\end{definicao}
+
+
+
+
+
