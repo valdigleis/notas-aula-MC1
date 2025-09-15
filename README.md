@@ -24,7 +24,7 @@ Esse documento será dividido em quatro partes:
     - ✅ **Capítulo 1**: Introdução à Lógica (Já em nível interessante, porém, precisa de mais exemplos).
     - ✅ **Capítulo 2**: Lógica Proposicional (Já em nível interessante, porém, precisa acrescentar uma seção usando [Coq](https://rocq-prover.org/)).
     - ❌ **Capítulo 3**: Lógica e Teorias de Primeira Ordem (Foi apagador para ser reescrito do zero).
-    - ⚠️ **Capítulo 4**: Métodos de demonstração (Já em nível interessante, porém, precisa acrescentar uma seção especificação formal e provas, talvez usando [Coq](https://rocq-prover.org/)).
+    - ⚠️ **Capítulo 4**: Métodos de demonstração (Já em nível interessante, porém, precisa acrescentar uma seção sobre refutações).
 
 2. Indução e Recursão - (Em processo de planejamento). 🚧
 3. Teoria dos Números e Criptografia 🛑 
