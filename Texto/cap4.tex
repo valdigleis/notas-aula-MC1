@@ -687,6 +687,7 @@ Com respeito ao diagrama de blocos, uma demonstração de unicidade apresenta um
 	}
 \end{exemplo}
 
+
 \section{Demonstração Guiada por Casos}
 
 Para realizar uma demonstração guiada por casos (ou simplesmente demonstração por casos) a estratégia emprega consiste em demonstrar cobrindo todos os casos possíveis que as premissas  $\alpha_i$ em um enunciado podem assumir, formalmente esta metodologia de demonstração é definida como se segue.
@@ -706,41 +707,6 @@ A justificativa da validade  da metodologia da prova por casos é que um enuncia
 
 Com respeito ao diagrama de blocos uma prova por casos consiste de um diagrama que possui em seu interior $n$ provas da forma $\alpha_i \Rightarrow \beta$ com $1 \leq i \leq n$, após todas as sub-provas serem apresentadas a última linha no diagrama mais externo irá expressar uma sentença da forma $(\alpha_1 \Rightarrow \beta) \land \cdots \land (\alpha_n \Rightarrow \beta)$, então o diagrama será fechado e será escrita a conclusão do diagrama. O exemplo a seguir ilustram esse procedimento.
 
-\begin{exemplo}\label{exe:DiagramaProva24}
-	Demonstração da asserção: Dado $n \in \mathbb{N}$. Se $n \leq 2$, então $n! \leq n + 1$.
-	{\scriptsize
-		\begin{logicproof}{4}
-			\begin{subproof}
-				n \in \mathbb{N} & --- Premissa\\
-				\begin{subproof}
-          \text{\textbf{Assuma} que } n = 0, &{\color{blue}Hipótese}\\
-					\text{\textbf{desde que} } 0! = 1 &\\
-					\text{\textbf{assim} } 0! \leq 1 &\\
-					\text{\textbf{mas} } 1 = n + 1&\\
-					\text{\textbf{então} } n! \leq n + 1 &
-				\end{subproof}
-        \text{\textbf{Portanto}, se } n = 0, \text{então } n! \leq n + 1 &{\color{blue}PD ($l2-5$)}\\
-				\begin{subproof}
-          \text{\textbf{Assuma} que } n = 1, &{\color{blue}Hipótese}\\
-					\text{\textbf{desde que} } n! = 1 &\\
-					\text{\textbf{assim} } n! < 2 &\\
-					\text{\textbf{mas} } 2 = n + 1&\\
-					\text{\textbf{então} } n! < n + 1 &
-				\end{subproof}
-        \text{\textbf{Portanto}, se } n = 1, \text{então } n! < n + 1 &{\color{blue}PD ($l7-11$)}\\
-				\begin{subproof}
-          \text{\textbf{Assuma} que } n = 2, &{\color{blue}Hipótese}\\
-					\text{\textbf{desde que} } n! = 2 &\\
-					\text{\textbf{logo} } n! < 3 &\\
-					\text{\textbf{mas} } 3 = n + 1&\\
-					\text{\textbf{então} } n! < n + 1 &
-				\end{subproof}
-        \text{\textbf{Portanto}, se } n = 2, \text{então } n! < n + 1 &{\color{blue}PD ($l7-11$)}
-			\end{subproof}
-      \text{\textbf{Portanto}, Dado $n \in \mathbb{N}$. Se } n \leq 2, \text{ então }n! \leq n + 1. &{\color{blue}PPC ($l1-19$)}
-		\end{logicproof}
-	}
-\end{exemplo}
 
 \begin{exemplo}\label{exe:DiagramaProva23}
 	Demonstração da asserção: Se $x \in  \mathbb{Z}$, então $x^2$ tem a mesma paridade de $x$.
@@ -763,6 +729,43 @@ Com respeito ao diagrama de blocos uma prova por casos consiste de um diagrama q
         \text{\textbf{Portanto}, se } x \text{ é ímpar, então }, x^2 \text{ é impar} &{\color{blue}PD ($l6-9$)}
 			\end{subproof}
       \text{\textbf{Portanto}, se } x \in \mathbb{Z}, \text{então } x^2 \text{ tem a mesma paridade que } x. &{\color{blue}PPC ($l1-10$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva24}
+	Demonstração da asserção: Dado $n \in \mathbb{N}$. Se $n \leq 2$, então $n! \leq n + 1$.
+	{\scriptsize
+		\begin{logicproof}{4}
+			n \in \mathbb{N} & --- Premissa\\
+			\begin{subproof}
+				& \\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } n = 0, &{\color{blue}Hipótese}\\
+					\text{\textbf{desde que} } 0! = 1 &\\
+					\text{\textbf{assim} } 0! \leq 1 &\\
+					\text{\textbf{mas} } 1 = n + 1&\\
+					\text{\textbf{então} } n! \leq n + 1 &
+				\end{subproof}
+        \text{\textbf{Portanto}, se } n = 0, \text{então } n! \leq n + 1 &{\color{blue}PD ($l3-l7$)}\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } n = 1, &{\color{blue}Hipótese}\\
+					\text{\textbf{desde que} } n! = 1 &\\
+					\text{\textbf{assim} } n! < 2 &\\
+					\text{\textbf{mas} } 2 = n + 1&\\
+					\text{\textbf{então} } n! < n + 1 &
+				\end{subproof}
+        \text{\textbf{Portanto}, se } n = 1, \text{então } n! < n + 1 &{\color{blue}PD ($l9-l13$)}\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } n = 2, &{\color{blue}Hipótese}\\
+					\text{\textbf{desde que} } n! = 2 &\\
+					\text{\textbf{logo} } n! < 3 &\\
+					\text{\textbf{mas} } 3 = n + 1&\\
+					\text{\textbf{então} } n! < n + 1 &
+				\end{subproof}
+        \text{\textbf{Portanto}, se } n = 2, \text{então } n! < n + 1 &{\color{blue}PD ($l15-l19$)}
+			\end{subproof}
+      \text{\textbf{Portanto}, Dado $n \in \mathbb{N}$. Se } n \leq 2, \text{ então }n! \leq n + 1. &{\color{blue}PPC ($l1-19$)}
 		\end{logicproof}
 	}
 \end{exemplo}
